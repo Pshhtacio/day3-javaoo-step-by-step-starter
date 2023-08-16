@@ -4,8 +4,7 @@ import java.util.Objects;
 
 public class Student extends Person {
 
-    private Klass klass = null;
-
+    private Klass klass = new Klass(0);
     private boolean isLeader = false;
 
     private final String introduction = String.format("%s I am a student.", super.introduce());
@@ -14,29 +13,32 @@ public class Student extends Person {
         super(id, name, age);
     }
 
+    public String getName(){
+        return super.getName();
+    }
     public void setLeader(boolean isLeader) {
         this.isLeader = isLeader;
     }
 
     public String introduce() {
-        if (Objects.nonNull(this.klass)) {
+        if (this.klass.getNumber() != 0) {
             return isLeader
                     ? String.format("%s I am the leader of class %d.", introduction, this.klass.getNumber())
-                    : String.format("%s I am in class 1.", introduction);
+                    : String.format("%s I am in class %s.", introduction, this.klass.getNumber());
         }
         return introduction;
     }
 
     public void join(Klass klass) {
-        this.klass = klass;
+        this.klass.setNumber(klass.getNumber());
     }
 
     public boolean isIn(Klass klass) {
-        return this.klass == klass;
+        return this.klass.getNumber() == klass.getNumber();
     }
 
-    public Klass getKlass() {
-        return klass;
+    public int getKlass() {
+        return klass != null ? klass.getNumber(): 0;
     }
 
 }
