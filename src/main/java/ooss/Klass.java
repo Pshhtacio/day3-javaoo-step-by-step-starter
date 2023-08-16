@@ -6,17 +6,17 @@ import java.util.List;
 public class Klass {
 
     private int number;
-    private int leader = 0;
+    private int leaderId = 0;
 
-    private List<Teacher> attachedTeachers = new ArrayList<>();
-    private List<Student> attachedStudents = new ArrayList<>();
+    private final List<Teacher> attachedTeachers = new ArrayList<>();
+    private final List<Student> attachedStudents = new ArrayList<>();
 
     public Klass(int number) {
         this.number = number;
     }
 
     public int getNumber() {
-        return this.number;
+        return number;
     }
 
     public void setNumber(int number) {
@@ -33,7 +33,7 @@ public class Klass {
 
     public void assignLeader(Student student) {
         if (isInSameClass(student)) {
-            this.leader = student.getId();
+            leaderId = student.getId();
             student.setLeader(true);
             displayAttachedMessage(student.getName());
         } else {
@@ -42,14 +42,22 @@ public class Klass {
     }
 
     private void displayAttachedMessage(String name) {
-        attachedTeachers.forEach(teacher -> {
-            if (attachedTeachers.contains(teacher))
-                System.out.printf(String.format("I am %s, teacher of Class %s. I know %s become Leader.", teacher.getName(), teacher.getKlasses(), name));
-        });
-        attachedStudents.forEach(student -> {
-            if (attachedStudents.contains(student))
-                System.out.printf(String.format("I am %s, student of Class %s. I know %s become Leader.", student.getName(), student.getKlass(), name));
-        });
+        attachedTeachers.forEach(teacher -> displayTeacherMessage(teacher, name));
+        attachedStudents.forEach(student -> displayStudentMessage(student, name));
+    }
+
+    private void displayTeacherMessage(Teacher teacher, String studentName) {
+        if (attachedTeachers.contains(teacher)) {
+            System.out.printf("I am %s, teacher of Class %s. I know %s become Leader.\n",
+                    teacher.getName(), teacher.getKlasses(), studentName);
+        }
+    }
+
+    private void displayStudentMessage(Student student, String studentName) {
+        if (attachedStudents.contains(student)) {
+            System.out.printf("I am %s, student of Class %s. I know %s become Leader.\n",
+                    student.getName(), student.getKlass(), studentName);
+        }
     }
 
     private boolean isInSameClass(Student student) {
@@ -57,7 +65,7 @@ public class Klass {
     }
 
     public boolean isLeader(Student student) {
-        return this.leader == student.getId();
+        return leaderId == student.getId();
     }
 
     public <T extends Person> void attach(T attachable) {
@@ -67,6 +75,4 @@ public class Klass {
             attachedStudents.add((Student) attachable);
         }
     }
-
-
 }
