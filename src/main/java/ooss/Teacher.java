@@ -7,10 +7,11 @@ import java.util.stream.Collectors;
 public class Teacher extends Person {
 
     private final String introduction = String.format("%s I am a teacher.", super.introduce());
-    private List<Integer> klasses = new ArrayList<>();
+    private final List<Integer> klasses;
 
     public Teacher(int id, String name, int age) {
         super(id, name, age);
+        klasses = new ArrayList<>();
     }
 
     public String getKlasses() {
