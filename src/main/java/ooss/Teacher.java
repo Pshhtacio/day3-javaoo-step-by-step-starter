@@ -7,35 +7,36 @@ import java.util.stream.Collectors;
 public class Teacher extends Person {
 
     private final String introduction = String.format("%s I am a teacher.", super.introduce());
-    private List<Integer> klass = new ArrayList<Integer>();
+    private List<Integer> klasses = new ArrayList<>();
 
     public Teacher(int id, String name, int age) {
         super(id, name, age);
     }
 
-    public String getKlasses(){
-        return this.klass.stream()
+    public String getKlasses() {
+        return klasses.stream()
                 .map(klass -> Integer.toString(klass))
                 .collect(Collectors.joining(", "));
     }
 
+    @Override
     public String introduce() {
-        return !this.klass.isEmpty()
-                ? String.format("%s I teach Class %s.", this.introduction, this.klass.stream()
+        return !klasses.isEmpty()
+                ? String.format("%s I teach Class %s.", introduction, klasses.stream()
                 .map(klass -> Integer.toString(klass))
                 .collect(Collectors.joining(", ")))
-                : this.introduction;
+                : introduction;
     }
 
     public void assignTo(Klass klass) {
-        this.klass.add(klass.getNumber());
+        klasses.add(klass.getNumber());
     }
 
     public boolean belongsTo(Klass klass) {
-        return this.klass.contains(klass.getNumber());
+        return klasses.contains(klass.getNumber());
     }
 
     public boolean isTeaching(Student student) {
-        return this.klass.contains(student.getKlass());
+        return klasses.contains(student.getKlass());
     }
 }
