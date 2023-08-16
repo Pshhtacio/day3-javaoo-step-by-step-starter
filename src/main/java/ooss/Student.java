@@ -13,18 +13,21 @@ public class Student extends Person {
         super(id, name, age);
     }
 
-    public String getName(){
+    @Override
+    public String getName() {
         return super.getName();
     }
+
     public void setLeader(boolean isLeader) {
         this.isLeader = isLeader;
     }
 
+    @Override
     public String introduce() {
-        if (this.klass.getNumber() != 0) {
+        if (klass.getNumber() != 0) {
             return isLeader
-                    ? String.format("%s I am the leader of class %d.", introduction, this.klass.getNumber())
-                    : String.format("%s I am in class %s.", introduction, this.klass.getNumber());
+                    ? String.format("%s I am the leader of class %d.", introduction, klass.getNumber())
+                    : String.format("%s I am in class %d.", introduction, klass.getNumber());
         }
         return introduction;
     }
@@ -38,7 +41,6 @@ public class Student extends Person {
     }
 
     public int getKlass() {
-        return klass != null ? klass.getNumber(): 0;
+        return klass != null ? klass.getNumber() : 0;
     }
-
 }
