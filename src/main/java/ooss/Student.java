@@ -1,10 +1,8 @@
 package ooss;
 
-import java.util.Objects;
-
 public class Student extends Person {
 
-    private Klass klass = new Klass(0);
+    private final Klass klass = new Klass(0);
     private boolean isLeader = false;
 
     private final String introduction = String.format("%s I am a student.", super.introduce());
@@ -41,6 +39,6 @@ public class Student extends Person {
     }
 
     public int getKlass() {
-        return klass != null ? klass.getNumber() : 0;
+        return klass.getNumber();
     }
 }
