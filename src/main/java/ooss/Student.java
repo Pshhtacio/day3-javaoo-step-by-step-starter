@@ -22,12 +22,12 @@ public class Student extends Person {
 
     @Override
     public String introduce() {
-        if (klass.getNumber() != 0) {
-            return isLeader
-                    ? String.format("%s I am the leader of class %d.", introduction, klass.getNumber())
-                    : String.format("%s I am in class %d.", introduction, klass.getNumber());
+        String studentIntroduction = String.format("%s I am in class %d.", introduction, klass.getNumber());
+        String leaderIntroduction = String.format("%s I am the leader of class %d.", introduction, klass.getNumber());
+        if (klass.getNumber() == 0) {
+            return introduction;
         }
-        return introduction;
+        return isLeader ? leaderIntroduction : studentIntroduction;
     }
 
     public void join(Klass klass) {
