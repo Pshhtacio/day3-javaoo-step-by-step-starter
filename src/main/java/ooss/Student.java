@@ -41,4 +41,9 @@ public class Student extends Person {
     public int getKlass() {
         return klass.getNumber();
     }
+
+    public void printAttachedMessage(String studentName) {
+        System.out.printf("I am %s, student of Class %s. I know %s become Leader.\n",
+                super.getName(), getKlass(), studentName);
+    }
 }
