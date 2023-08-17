@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Teacher extends Person {
-
-    private final String introduction = String.format("%s I am a teacher.", super.introduce());
     private final List<Integer> klasses;
 
     public Teacher(int id, String name, int age) {
@@ -22,11 +20,18 @@ public class Teacher extends Person {
 
     @Override
     public String introduce() {
-        return !klasses.isEmpty()
-                ? String.format("%s I teach Class %s.", introduction, klasses.stream()
+        String teacherIntroduction = String.format("%s I am a teacher.", super.introduce());
+        String teacherWithKlassIntroduction = getKlassIntroduction(teacherIntroduction);
+        if (klasses.isEmpty()) {
+            return teacherIntroduction;
+        }
+        return teacherWithKlassIntroduction;
+    }
+
+    private String getKlassIntroduction(String introduction) {
+        return String.format("%s I teach Class %s.", introduction, klasses.stream()
                 .map(klass -> Integer.toString(klass))
-                .collect(Collectors.joining(", ")))
-                : introduction;
+                .collect(Collectors.joining(", ")));
     }
 
     public void assignTo(Klass klass) {
@@ -39,5 +44,10 @@ public class Teacher extends Person {
 
     public boolean isTeaching(Student student) {
         return klasses.contains(student.getKlass());
+    }
+
+    public void printAttachedMessage(String studentName) {
+        System.out.printf("I am %s, teacher of Class %s. I know %s become Leader.\n",
+                super.getName(), getKlasses(), studentName);
     }
 }
