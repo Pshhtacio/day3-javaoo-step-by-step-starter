@@ -32,12 +32,12 @@ public class Klass {
     }
 
     public void assignLeader(Student student) {
-        if (isInSameClass(student)) {
+        if (!isInSameClass(student)) {
+            System.out.println("It is not one of us.");
+        } else {
             leaderId = student.getId();
             student.setLeader(true);
             displayAttachedMessage(student.getName());
-        } else {
-            System.out.println("It is not one of us.");
         }
     }
 
@@ -48,15 +48,13 @@ public class Klass {
 
     private void displayTeacherMessage(Teacher teacher, String studentName) {
         if (attachedTeachers.contains(teacher)) {
-            System.out.printf("I am %s, teacher of Class %s. I know %s become Leader.\n",
-                    teacher.getName(), teacher.getKlasses(), studentName);
+            teacher.printAttachedMessage(studentName);
         }
     }
 
     private void displayStudentMessage(Student student, String studentName) {
         if (attachedStudents.contains(student)) {
-            System.out.printf("I am %s, student of Class %s. I know %s become Leader.\n",
-                    student.getName(), student.getKlass(), studentName);
+           student.printAttachedMessage(studentName);
         }
     }
 
