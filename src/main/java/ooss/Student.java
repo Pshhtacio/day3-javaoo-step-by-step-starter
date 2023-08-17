@@ -35,7 +35,7 @@ public class Student extends Person {
     }
 
     public boolean isIn(Klass klass) {
-        return this.klass.getNumber() == klass.getNumber();
+        return this.klass.equals(klass);
     }
 
     public int getKlass() {
